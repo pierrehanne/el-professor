@@ -1,0 +1,27 @@
+{
+  "gemini-2.5-flash": {
+    "priority": 1,
+    "RPM": 10,
+    "daily_request": 500
+  },
+  "gemini-2.5-flash-lite":{
+    "priority": 2,
+    "RPM": 15,
+    "daily_request": 500
+  },
+  "gemini-2.0-flash": {
+    "priority": 3,
+    "RPM": 15,
+    "daily_request": 1500
+  },
+  "gemini-2.0-flash-lite": {
+    "priority": 4,
+    "RPM": 30,
+    "daily_request": 1500
+  },
+  "gemma-3-27b-it": {
+    "priority": 5,
+    "RPM": 30,
+    "daily_request": 14400
+  }
+}
