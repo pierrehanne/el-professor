@@ -1,0 +1,30 @@
+[project]
+name = "el-professor"
+version = "0.1.0"
+description = "An AI-powered Python professor that helps you learn AWS, Terraform through Q/A Agent that leverage knowledge from Official AWS MCP Servers."
+authors = [
+    {name = "pierrehanne",email = "pierre.hanne@icloud.com"}
+]
+readme = "README.md"
+requires-python = ">=3.13,<3.14"
+dependencies = [
+    "streamlit>=1.47.1",
+    "google-genai>=1.28.0",
+    "httpx>=0.28.1",
+    "mcp>=1.12.3",
+    "python-dotenv>=1.1.1",
+    "python-json-logger (>=3.3.0,<4.0.0)",
+    "poetry-core (>=2.0.0,<3.0.0)",
+    "fastapi (>=0.116.1,<0.117.0)",
+]
+
+[project.optional-dependencies]
+dev = [
+  "black",
+  "ruff",
+  "pytest",
+]
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
