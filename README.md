@@ -13,7 +13,7 @@
 ---
 
 ## 📂 Project Structure
-
+```
 el-professor/
 ├── agent/
 ├──── init.py
@@ -36,7 +36,7 @@ el-professor/
 ├── el_professor_ui.py
 ├── .env
 └── README.md
-
+```
 ---
 
 ## 🛠️ Installation
