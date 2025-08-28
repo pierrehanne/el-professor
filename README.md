@@ -4,19 +4,18 @@ A Next.js application that reproduces the "El Profesor" AI education assistant w
 
 ## Features
 
-- **Modern Tech Stack**: Next.js 14, TypeScript, Tailwind CSS
+- **Modern Tech Stack**: Next.js 15, TypeScript, Tailwind CSS
 - **AI-Powered Chat**: Google Generative AI with streaming responses
 - **MCP Integration**: Multiple MCP servers for enhanced context:
   - AWS Documentation MCP Server
   - Terraform MCP Server  
   - AWS Diagram MCP Server
-  - Microsoft Docs MCP Server
 - **Responsive Design**: Mobile-friendly interface
 - **Real-time Streaming**: Server-sent events for smooth chat experience
 
 ## Prerequisites
 
-1. **Node.js** (v18 or higher)
+1. **Node.js** (v20 or higher)
 2. **Python** with `uv` and `uvx` installed for MCP servers:
    ```bash
    # Install uv (Python package manager)
