@@ -1,4 +1,8 @@
 # El Profesor - AI Education Assistant
+ 
+[![Next.js](https://img.shields.io/badge/Next.js-15-black?logo=next.js)](https://nextjs.org/) [![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?logo=typescript)](https://www.typescriptlang.org/)   [![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-3-38B2AC?logo=tailwindcss&logoColor=white)](https://tailwindcss.com/) [![Google Generative AI](https://img.shields.io/badge/Google%20GenAI-API-orange?logo=google)](https://ai.google.dev/) [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)  
+
+
 
 A Next.js application that reproduces the "El Profesor" AI education assistant website with streaming capabilities and MCP (Model Context Protocol) server integration.
 
@@ -8,7 +12,7 @@ A Next.js application that reproduces the "El Profesor" AI education assistant w
 - **AI-Powered Chat**: Google Generative AI with streaming responses
 - **MCP Integration**: Multiple MCP servers for enhanced context:
   - AWS Documentation MCP Server
-  - Terraform MCP Server  
+  - AWS Terraform MCP Server  
   - AWS Diagram MCP Server
 - **Responsive Design**: Mobile-friendly interface
 - **Real-time Streaming**: Server-sent events for smooth chat experience
@@ -55,9 +59,8 @@ A Next.js application that reproduces the "El Profesor" AI education assistant w
 The application automatically connects to these MCP servers:
 
 - **AWS Documentation**: `awslabs.aws-documentation-mcp-server@latest`
-- **Terraform**: `awslabs.terraform-mcp-server@latest`  
+- **AWS Terraform**: `awslabs.terraform-mcp-server@latest`  
 - **AWS Diagrams**: `awslabs.aws-diagram-mcp-server@latest`
-- **Microsoft Docs**: `microsoftdocs-mcp@latest`
 
 These servers provide enhanced context for AI responses about AWS, Terraform, and Microsoft technologies.
 
@@ -66,29 +69,29 @@ These servers provide enhanced context for AI responses about AWS, Terraform, an
 ### Frontend-Backend Separation
 
 ```
-├── src/                      # Source code
-│   ├── app/                  # Next.js App Router
+├── src/                            # Source code
+│   ├── app/                        # Next.js App Router
 │   │   ├── api/
-│   │   │   └── chat/        # API routes (thin controllers)
-│   │   ├── chat/            # Chat interface page
-│   │   ├── globals.css      # Global styles
-│   │   ├── layout.tsx       # Root layout
-│   │   └── page.tsx         # Home page
-│   ├── backend/             # Backend logic (MVC pattern)
+│   │   │   └── chat/               # API routes (thin controllers)
+│   │   ├── chat/                   # Chat interface page
+│   │   ├── globals.css             # Global styles
+│   │   ├── layout.tsx              # Root layout
+│   │   └── page.tsx                # Home page
+│   ├── backend/                    # Backend logic (MVC pattern)
 │   │   ├── config/
-│   │   │   └── env-config.ts # Environment configuration
+│   │   │   └── env-config.ts       # Environment configuration
 │   │   ├── controllers/
-│   │   │   └── chat-controller.ts # Chat business logic
+│   │   │   └── chat-controller.ts  # Chat business logic
 │   │   └── services/
-│   │       ├── ai-service.ts     # Google GenAI integration
-│   │       └── mcp-service.ts    # MCP server integration
-│   └── frontend/            # Frontend logic
+│   │       ├── ai-service.ts       # Google GenAI integration
+│   │       └── mcp-service.ts      # MCP server integration
+│   └── frontend/                   # Frontend logic
 │       ├── hooks/
-│       │   └── use-chat.ts  # Chat state management
+│       │   └── use-chat.ts         # Chat state management
 │       └── services/
-│           └── chat-service.ts   # API communication
-├── .github/workflows/       # CI/CD workflows
-├── .vscode/                 # VS Code settings
+│           └── chat-service.ts     # API communication
+├── .github/workflows/              # CI/CD workflows
+├── .vscode/                        # VS Code settings
 └── ...config files
 ```
 
@@ -144,9 +147,6 @@ The project includes comprehensive linting and formatting:
 4. **Type check**: `npm run type-check`
 5. **Build test**: `npm run build`
 
-## License
-
-MIT License
 ## 
 Environment Configuration
 
@@ -168,3 +168,7 @@ The application automatically loads the correct environment file based on `NODE_
 - All `.env.*` files (except `.env.local.example`) are excluded from git
 - Environment variables are validated at startup
 - No sensitive data is exposed in the client-side code
+
+## License
+
+MIT License
