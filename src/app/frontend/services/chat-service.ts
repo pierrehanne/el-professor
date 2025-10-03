@@ -3,6 +3,7 @@ export interface ChatMessage {
   role: 'user' | 'assistant'
   content: string
   timestamp: Date
+  model?: string
 }
 
 export class ChatService {
@@ -10,15 +11,27 @@ export class ChatService {
     message: string,
     onChunk: (chunk: string) => void,
     onComplete: () => void,
-    onError: (error: string) => void
+    onError: (error: string) => void,
+    model: string = 'gemini-2.5-flash-lite',
+    temperature?: number,
+    topP?: number,
+    systemPrompt?: string
   ): Promise<void> {
     try {
-      const response = await fetch('/api/chat', {
+      const response = await fetch('/api/chat/message', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ message }),
+        body: JSON.stringify({ 
+          message,
+          model,
+          useStreaming: true,
+          useMCPTools: false, // Disabled for now
+          temperature,
+          topP,
+          systemPrompt
+        }),
       })
 
       if (!response.ok) {
@@ -50,9 +63,13 @@ export class ChatService {
 
             try {
               const parsed = JSON.parse(data)
-              if (parsed.content) {
+              
+              if (parsed.type === 'ai_chunk' && parsed.content) {
                 onChunk(parsed.content)
-              } else if (parsed.error) {
+              } else if (parsed.type === 'complete') {
+                onComplete()
+                return
+              } else if (parsed.type === 'error') {
                 onError(parsed.error)
                 return
               }
@@ -69,14 +86,22 @@ export class ChatService {
     }
   }
 
-  async sendMessage(message: string): Promise<string> {
+  async sendMessage(message: string, model: string = 'gemini-2.5-flash-lite', temperature?: number, topP?: number, systemPrompt?: string): Promise<string> {
     try {
       const response = await fetch('/api/chat/message', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ message }),
+        body: JSON.stringify({ 
+          message,
+          model,
+          useStreaming: false,
+          useMCPTools: false, // Disabled for now
+          temperature,
+          topP,
+          systemPrompt
+        }),
       })
 
       if (!response.ok) {

@@ -5,6 +5,11 @@ export const useChat = () => {
   const [messages, setMessages] = useState<ChatMessage[]>([])
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [selectedModel, setSelectedModel] = useState('gemini-2.5-flash-lite')
+
+  const [temperature, setTemperature] = useState(0.7)
+  const [topP, setTopP] = useState(0.9)
+  const [systemPrompt, setSystemPrompt] = useState('')
   const abortControllerRef = useRef<AbortController | null>(null)
 
   const addMessage = useCallback((message: Omit<ChatMessage, 'id' | 'timestamp'>) => {
@@ -29,24 +34,25 @@ export const useChat = () => {
 
   const sendMessage = useCallback(
     async (content: string) => {
-      if (!content.trim() || isLoading) return
+      if (!content.trim()) return
 
       setError(null)
       setIsLoading(true)
 
-      // Add user message
-      const userMessage = addMessage({
-        role: 'user',
-        content: content.trim(),
-      })
-
-      // Add assistant message placeholder
-      const assistantMessageId = addMessage({
-        role: 'assistant',
-        content: '',
-      })
-
       try {
+        // Add user message
+        const userMessage = addMessage({
+          role: 'user',
+          content: content,
+        })
+
+        // Add assistant message placeholder
+        const assistantMessageId = addMessage({
+          role: 'assistant',
+          content: '',
+          model: selectedModel,
+        })
+
         // Create abort controller for this request
         abortControllerRef.current = new AbortController()
 
@@ -65,16 +71,23 @@ export const useChat = () => {
             setError(errorMessage)
             updateMessage(assistantMessageId, 'Sorry, I encountered an error. Please try again.')
             setIsLoading(false)
-          }
+          },
+          // Model
+          selectedModel,
+          // Temperature
+          temperature,
+          // TopP
+          topP,
+          // System Prompt
+          systemPrompt || undefined
         )
       } catch (error) {
         const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred'
         setError(errorMessage)
-        updateMessage(assistantMessageId, 'Sorry, I encountered an error. Please try again.')
         setIsLoading(false)
       }
     },
-    [isLoading, addMessage, updateMessage]
+    [isLoading, addMessage, updateMessage, selectedModel]
   )
 
   const clearMessages = useCallback(() => {
@@ -94,6 +107,15 @@ export const useChat = () => {
     messages,
     isLoading,
     error,
+    selectedModel,
+    setSelectedModel,
+
+    temperature,
+    setTemperature,
+    topP,
+    setTopP,
+    systemPrompt,
+    setSystemPrompt,
     sendMessage,
     clearMessages,
     stopGeneration,
